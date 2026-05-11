@@ -14,13 +14,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("""
             SELECT p FROM Product p JOIN FETCH p.category c
             WHERE (:categoryId IS NULL OR c.id = :categoryId)
-              AND (:search IS NULL OR LOWER(p.name) LIKE LOWER(CONCAT('%', :search, '%'))
-                                   OR LOWER(p.description) LIKE LOWER(CONCAT('%', :search, '%')))
+              AND (:search IS NULL OR LOWER(p.name) LIKE :searchPattern OR LOWER(p.description) LIKE :searchPattern)
               AND (:available IS NULL OR p.available = :available)
             """)
     Page<Product> findByFilters(
             @Param("categoryId") Long categoryId,
             @Param("search") String search,
+            @Param("searchPattern") String searchPattern,
             @Param("available") Boolean available,
             Pageable pageable);
 

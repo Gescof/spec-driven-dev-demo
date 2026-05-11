@@ -19,8 +19,8 @@
 
 **Purpose**: Environment configuration files required by all services before any Compose service is defined.
 
-- [ ] T001 Add `.env` to `.gitignore` at repository root (create `.gitignore` if it does not exist; append `.env` if it does)
-- [ ] T002 Create `.env.example` at repository root documenting all required variables with example values: `POSTGRES_DB=petshop`, `POSTGRES_USER=petshop`, `POSTGRES_PASSWORD=petshop_secret`, `BACKEND_PORT=8080`, `FRONTEND_PORT=80`
+- [X] T001 Add `.env` to `.gitignore` at repository root (create `.gitignore` if it does not exist; append `.env` if it does)
+- [X] T002 Create `.env.example` at repository root documenting all required variables with example values: `POSTGRES_DB=petshop`, `POSTGRES_USER=petshop`, `POSTGRES_PASSWORD=petshop_secret`, `BACKEND_PORT=8080`, `FRONTEND_PORT=80`
 
 ---
 
@@ -30,8 +30,8 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T003 Create `docker-compose.yml` at repository root with the `db` service: image `postgres:15-alpine`, environment variables `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD` with inline defaults (`petshop`, `petshop`, `petshop_secret`), health check `test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-petshop}"]` with `interval: 5s`, `timeout: 5s`, `retries: 5`, and volume mount `postgres_data:/var/lib/postgresql/data`
-- [ ] T004 Add top-level `volumes:` section declaring `postgres_data:` to `docker-compose.yml` (appended after the `services:` block)
+- [X] T003 Create `docker-compose.yml` at repository root with the `db` service: image `postgres:15-alpine`, environment variables `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD` with inline defaults (`petshop`, `petshop`, `petshop_secret`), health check `test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-petshop}"]` with `interval: 5s`, `timeout: 5s`, `retries: 5`, and volume mount `postgres_data:/var/lib/postgresql/data`
+- [X] T004 Add top-level `volumes:` section declaring `postgres_data:` to `docker-compose.yml` (appended after the `services:` block)
 
 **Checkpoint**: Foundation ready — `db` service is defined and health-checked. User story implementation can now begin.
 
@@ -43,12 +43,12 @@
 
 **Independent Test**: Run `docker compose up --build` on a clean machine (Docker only). Navigate to `http://localhost:80`; verify the pet shop home page loads and displays products. Verify `http://localhost:8080/api/v1/categories` returns HTTP 200. Run `docker compose down` and confirm clean shutdown.
 
-- [ ] T005 [P] [US1] Create `backend/Dockerfile` with two named stages: (1) `builder` stage using `eclipse-temurin:21-jdk-alpine`, sets `WORKDIR /build`, copies `pom.xml` then `src/` to leverage layer caching, runs `./mvnw package -DskipTests` (or `mvn package -DskipTests` if no wrapper); (2) `runtime` stage using `eclipse-temurin:21-jre-alpine`, creates non-root group and user `appuser` with UID 1001 (`addgroup -S appuser && adduser -S appuser -G appuser`), sets `WORKDIR /app`, copies fat JAR from `builder` stage to `/app/app.jar`, sets ownership to `appuser`, switches to `appuser` with `USER appuser`, sets `ENTRYPOINT ["java", "-jar", "/app/app.jar"]`
-- [ ] T006 [P] [US1] Create `frontend/nginx.conf` with: a single `server` block listening on port 80, `root /usr/share/nginx/html`, `index index.html`, `location /` with `try_files $uri $uri/ /index.html`, `location /api/` with `proxy_pass http://backend:8080/api/`, `proxy_set_header Host $host`, `proxy_set_header X-Real-IP $remote_addr`, `proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for`, `proxy_set_header X-Forwarded-Proto $scheme`, `proxy_read_timeout 60s`, `proxy_connect_timeout 10s`
-- [ ] T007 [US1] Create `frontend/Dockerfile` using `nginx:1.25-alpine` as base, `COPY` all static files from `frontend/` (HTML, CSS, JS) to `/usr/share/nginx/html`, `COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf`, create non-root user `nginxuser` with UID 1001 (`addgroup -S nginxuser && adduser -S nginxuser -G nginxuser`), set appropriate ownership on html dir and nginx pid dir, switch to `USER nginxuser`, expose port 80, default `CMD ["nginx", "-g", "daemon off;"]`
-- [ ] T008 [US1] Add `backend` service to `docker-compose.yml`: `build: {context: ./backend}`, `depends_on: {db: {condition: service_healthy}}`, `ports: ["${BACKEND_PORT:-8080}:8080"]`, environment variables `SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-petshop}`, `SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-petshop}`, `SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-petshop_secret}`
-- [ ] T009 [US1] Add `frontend` service to `docker-compose.yml`: `build: {context: ./frontend}`, `depends_on: [backend]`, `ports: ["${FRONTEND_PORT:-80}:80"]`
-- [ ] T010 [US1] Smoke test User Story 1: run `docker compose up --build`, wait for all three services to report `healthy`/`running`, verify `http://localhost:80` serves the pet shop home page, verify `http://localhost:8080/api/v1/categories` returns HTTP 200 JSON, run `docker compose down` and confirm all containers stop cleanly
+- [X] T005 [P] [US1] Create `backend/Dockerfile` with two named stages: (1) `builder` stage using `eclipse-temurin:21-jdk-alpine`, sets `WORKDIR /build`, copies `pom.xml` then `src/` to leverage layer caching, runs `./mvnw package -DskipTests` (or `mvn package -DskipTests` if no wrapper); (2) `runtime` stage using `eclipse-temurin:21-jre-alpine`, creates non-root group and user `appuser` with UID 1001 (`addgroup -S appuser && adduser -S appuser -G appuser`), sets `WORKDIR /app`, copies fat JAR from `builder` stage to `/app/app.jar`, sets ownership to `appuser`, switches to `appuser` with `USER appuser`, sets `ENTRYPOINT ["java", "-jar", "/app/app.jar"]`
+- [X] T006 [P] [US1] Create `frontend/nginx.conf` with: a single `server` block listening on port 80, `root /usr/share/nginx/html`, `index index.html`, `location /` with `try_files $uri $uri/ /index.html`, `location /api/` with `proxy_pass http://backend:8080/api/`, `proxy_set_header Host $host`, `proxy_set_header X-Real-IP $remote_addr`, `proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for`, `proxy_set_header X-Forwarded-Proto $scheme`, `proxy_read_timeout 60s`, `proxy_connect_timeout 10s`
+- [X] T007 [US1] Create `frontend/Dockerfile` using `nginx:1.25-alpine` as base, `COPY` all static files from `frontend/` (HTML, CSS, JS) to `/usr/share/nginx/html`, `COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf`, create non-root user `nginxuser` with UID 1001 (`addgroup -S nginxuser && adduser -S nginxuser -G nginxuser`), set appropriate ownership on html dir and nginx pid dir, switch to `USER nginxuser`, expose port 80, default `CMD ["nginx", "-g", "daemon off;"]`
+- [X] T008 [US1] Add `backend` service to `docker-compose.yml`: `build: {context: ./backend}`, `depends_on: {db: {condition: service_healthy}}`, `ports: ["${BACKEND_PORT:-8080}:8080"]`, environment variables `SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-petshop}`, `SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-petshop}`, `SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-petshop_secret}`
+- [X] T009 [US1] Add `frontend` service to `docker-compose.yml`: `build: {context: ./frontend}`, `depends_on: [backend]`, `ports: ["${FRONTEND_PORT:-80}:80"]`
+- [X] T010 [US1] Smoke test User Story 1: run `docker compose up --build`, wait for all three services to report `healthy`/`running`, verify `http://localhost:80` serves the pet shop home page, verify `http://localhost:8080/api/v1/categories` returns HTTP 200 JSON, run `docker compose down` and confirm all containers stop cleanly
 
 **Checkpoint**: User Story 1 complete — full application is startable with one command.
 
@@ -60,8 +60,8 @@
 
 **Independent Test**: Run `docker compose up db backend`, wait for both services to be healthy. Send `GET http://localhost:8080/api/v1/categories` and verify HTTP 200 response with JSON data. Write a record via the API and verify it persists across a `docker compose down` / `docker compose up db backend` cycle.
 
-- [ ] T011 [US2] Confirm `depends_on: db: condition: service_healthy` is present in the `backend` service in `docker-compose.yml` (verify from T008; add the condition if it was added as a simple list rather than a map with condition key)
-- [ ] T012 [US2] Smoke test User Story 2: run `docker compose up db backend`, wait for both containers to report healthy, send `GET http://localhost:8080/api/v1/categories`, confirm HTTP 200 JSON response, POST a new resource, restart with `docker compose down && docker compose up db backend`, confirm the previously written data is still present (volume persistence)
+- [X] T011 [US2] Confirm `depends_on: db: condition: service_healthy` is present in the `backend` service in `docker-compose.yml` (verify from T008; add the condition if it was added as a simple list rather than a map with condition key)
+- [X] T012 [US2] Smoke test User Story 2: run `docker compose up db backend`, wait for both containers to report healthy, send `GET http://localhost:8080/api/v1/categories`, confirm HTTP 200 JSON response, POST a new resource, restart with `docker compose down && docker compose up db backend`, confirm the previously written data is still present (volume persistence)
 
 **Checkpoint**: User Story 2 complete — backend and database run independently of the frontend.
 
@@ -73,8 +73,8 @@
 
 **Independent Test**: Start full stack, navigate to `http://localhost:80`, open browser developer tools, verify all CSS and JS assets load with HTTP 200, trigger an API call (e.g., browse the product list), confirm the network tab shows `/api/v1/` requests going to port 80 (proxied through Nginx) with no CORS errors in the console.
 
-- [ ] T013 [US3] Review `frontend/nginx.conf` (from T006): confirm `proxy_pass` correctly strips the `/api/` prefix before forwarding to `http://backend:8080/api/` (trailing slash on both `location` and `proxy_pass` is required to avoid double `/api/api/` paths); adjust if incorrect
-- [ ] T014 [US3] Smoke test User Story 3: start `docker compose up --build`, open `http://localhost:80` in browser, open DevTools Network tab, verify `index.html` and all linked CSS/JS assets return HTTP 200, interact with the page to trigger an API call, confirm the XHR/fetch request is proxied through port 80 and returns data without any CORS error in the console
+- [X] T013 [US3] Review `frontend/nginx.conf` (from T006): confirm `proxy_pass` correctly strips the `/api/` prefix before forwarding to `http://backend:8080/api/` (trailing slash on both `location` and `proxy_pass` is required to avoid double `/api/api/` paths); adjust if incorrect
+- [X] T014 [US3] Smoke test User Story 3: start `docker compose up --build`, open `http://localhost:80` in browser, open DevTools Network tab, verify `index.html` and all linked CSS/JS assets return HTTP 200, interact with the page to trigger an API call, confirm the XHR/fetch request is proxied through port 80 and returns data without any CORS error in the console
 
 **Checkpoint**: User Story 3 complete — frontend Nginx container correctly serves static files and proxies API requests.
 
@@ -84,10 +84,10 @@
 
 **Purpose**: Security compliance, documentation validation, and final acceptance run.
 
-- [ ] T015 [P] Audit `docker-compose.yml`, `backend/Dockerfile`, and `frontend/Dockerfile` for any hardcoded credentials or hard-coded environment-specific values (SC-005); confirm all sensitive values are read from environment variables with safe defaults only
-- [ ] T016 [P] Verify `.env.example` at repository root contains every variable referenced in `docker-compose.yml` with a descriptive comment for each entry (FR-009 compliance)
-- [ ] T017 [P] Confirm both Dockerfiles switch to a non-root user before `CMD`/`ENTRYPOINT`: `appuser` in `backend/Dockerfile` and `nginxuser` in `frontend/Dockerfile` (FR-003 compliance)
-- [ ] T018 Run full clean-slate acceptance test: `docker compose down -v` to destroy all containers and volumes, then `docker compose up --build` to rebuild from scratch; verify all services start healthy within 60 seconds and the pet shop home page loads (SC-001, SC-002)
+- [X] T015 [P] Audit `docker-compose.yml`, `backend/Dockerfile`, and `frontend/Dockerfile` for any hardcoded credentials or hard-coded environment-specific values (SC-005); confirm all sensitive values are read from environment variables with safe defaults only
+- [X] T016 [P] Verify `.env.example` at repository root contains every variable referenced in `docker-compose.yml` with a descriptive comment for each entry (FR-009 compliance)
+- [X] T017 [P] Confirm both Dockerfiles switch to a non-root user before `CMD`/`ENTRYPOINT`: `appuser` in `backend/Dockerfile` and `nginxuser` in `frontend/Dockerfile` (FR-003 compliance)
+- [X] T018 Run full clean-slate acceptance test: `docker compose down -v` to destroy all containers and volumes, then `docker compose up --build` to rebuild from scratch; verify all services start healthy within 60 seconds and the pet shop home page loads (SC-001, SC-002)
 
 ---
 

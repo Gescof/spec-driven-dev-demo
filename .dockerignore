@@ -1,0 +1,9 @@
+.git/
+specs/
+.specify/
+.claude/
+*.md
+.env
+.env.*
+!.env.example
+*.log

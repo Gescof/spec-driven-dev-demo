@@ -23,7 +23,8 @@ public class ProductService {
     }
 
     public ProductPageResponse listProducts(Long categoryId, String search, Boolean available, Pageable pageable) {
-        Page<Product> page = productRepository.findByFilters(categoryId, search, available, pageable);
+        String searchPattern = search != null ? "%" + search.toLowerCase() + "%" : null;
+        Page<Product> page = productRepository.findByFilters(categoryId, search, searchPattern, available, pageable);
         List<ProductSummaryResponse> items = page.getContent().stream().map(this::toSummary).toList();
         return new ProductPageResponse(items, page.getTotalElements(), page.getTotalPages(),
                 page.getNumber(), page.getSize());

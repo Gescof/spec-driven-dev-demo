@@ -59,7 +59,7 @@ class ProductServiceTest {
     void listProducts_noFilter_returnsFullPage() {
         Pageable pageable = PageRequest.of(0, 20);
         Page<Product> page = new PageImpl<>(List.of(product), pageable, 1);
-        when(productRepository.findByFilters(isNull(), isNull(), isNull(), eq(pageable))).thenReturn(page);
+        when(productRepository.findByFilters(isNull(), isNull(), isNull(), isNull(), eq(pageable))).thenReturn(page);
 
         ProductPageResponse result = productService.listProducts(null, null, null, pageable);
 
@@ -71,7 +71,7 @@ class ProductServiceTest {
     void listProducts_withCategoryId_returnsFilteredPage() {
         Pageable pageable = PageRequest.of(0, 20);
         Page<Product> page = new PageImpl<>(List.of(product), pageable, 1);
-        when(productRepository.findByFilters(eq(1L), isNull(), isNull(), eq(pageable))).thenReturn(page);
+        when(productRepository.findByFilters(eq(1L), isNull(), isNull(), isNull(), eq(pageable))).thenReturn(page);
 
         ProductPageResponse result = productService.listProducts(1L, null, null, pageable);
 
@@ -82,7 +82,7 @@ class ProductServiceTest {
     void listProducts_withSearch_returnsFilteredPage() {
         Pageable pageable = PageRequest.of(0, 20);
         Page<Product> page = new PageImpl<>(List.of(product), pageable, 1);
-        when(productRepository.findByFilters(isNull(), eq("dog"), isNull(), eq(pageable))).thenReturn(page);
+        when(productRepository.findByFilters(isNull(), eq("dog"), eq("%dog%"), isNull(), eq(pageable))).thenReturn(page);
 
         ProductPageResponse result = productService.listProducts(null, "dog", null, pageable);
 
