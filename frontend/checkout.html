@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Shop — Checkout</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="nav">
+        <a class="nav__brand" href="index.html">PetShop</a>
+        <ul class="nav__links">
+            <li><a href="catalog.html">Catalog</a></li>
+            <li class="nav__cart-item"><a href="cart.html">Cart <span id="nav-cart-count" class="cart-badge" style="display:none">0</span></a></li>
+            <li class="nav__auth-guest"><a href="login.html">Login</a></li>
+            <li class="nav__auth-guest"><a href="register.html">Register</a></li>
+            <li class="nav__auth-user" style="display:none"><a href="account.html">Account</a></li>
+            <li class="nav__auth-user" style="display:none"><a href="#" id="nav-logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <main class="checkout-layout">
+        <div id="checkout-main">
+            <section id="order-summary" class="card">
+                <h2>Order Summary</h2>
+                <ul id="summary-items" class="summary-list"></ul>
+                <p class="summary-total"><strong>Total: <span id="summary-total">$0.00</span></strong></p>
+            </section>
+
+            <section class="checkout-form-section">
+                <h2>Payment</h2>
+                <p class="disclaimer">⚠️ Simulated payment — no real card data is processed.</p>
+                <p id="checkout-error" class="field-error" style="display:none"></p>
+                <form id="checkout-form" novalidate>
+                    <div class="form-group">
+                        <label for="cardholder-name">Cardholder Name</label>
+                        <input id="cardholder-name" type="text" name="cardholderName" autocomplete="cc-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-number">Card Number</label>
+                        <input id="card-number" type="text" name="cardNumber" maxlength="16" pattern="\d{16}" placeholder="1234567890123456" autocomplete="cc-number" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiry">Expiry (MM/YY)</label>
+                            <input id="expiry" type="text" name="expiry" maxlength="5" placeholder="MM/YY" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input id="cvv" type="text" name="cvv" maxlength="4" placeholder="123" required>
+                        </div>
+                    </div>
+                    <button class="btn btn--primary btn--full" type="submit">Confirm Order</button>
+                </form>
+            </section>
+        </div>
+
+        <section id="order-confirmation" class="card confirmation" style="display:none">
+            <h2>Order Confirmed!</h2>
+            <p class="order-number">Order Number: <strong id="confirmed-order-number"></strong></p>
+            <a class="btn btn--secondary" href="account.html">View Order History</a>
+        </section>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>
