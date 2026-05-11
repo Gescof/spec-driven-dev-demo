@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Shop — Register</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="nav">
+        <a class="nav__brand" href="index.html">PetShop</a>
+        <ul class="nav__links">
+            <li><a href="catalog.html">Catalog</a></li>
+            <li class="nav__cart-item"><a href="cart.html">Cart <span id="nav-cart-count" class="cart-badge" style="display:none">0</span></a></li>
+            <li class="nav__auth-guest"><a href="login.html">Login</a></li>
+            <li class="nav__auth-guest"><a href="register.html">Register</a></li>
+            <li class="nav__auth-user" style="display:none"><a href="account.html">Account</a></li>
+            <li class="nav__auth-user" style="display:none"><a href="#" id="nav-logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <main class="auth-layout">
+        <div class="auth-card">
+            <h1>Create Account</h1>
+            <p id="register-error" class="field-error" style="display:none"></p>
+            <form id="register-form" novalidate>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input id="name" type="text" name="name" autocomplete="name" required>
+                    <span id="name-error" class="field-error" style="display:none"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" autocomplete="email" required>
+                    <span id="email-error" class="field-error" style="display:none"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password <small>(min 8 characters)</small></label>
+                    <input id="password" type="password" name="password" autocomplete="new-password" required minlength="8">
+                    <span id="password-error" class="field-error" style="display:none"></span>
+                </div>
+                <button class="btn btn--primary btn--full" type="submit">Create Account</button>
+            </form>
+            <p class="auth-alt">Already have an account? <a href="login.html">Log in</a></p>
+        </div>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/register.js"></script>
+</body>
+</html>

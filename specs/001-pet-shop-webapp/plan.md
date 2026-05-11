@@ -106,3 +106,11 @@ frontend/
 | Violation | Why Needed | Simpler Alternative Rejected Because |
 |---|---|---|
 | — | — | — |
+
+## Performance Notes
+
+> Added during Phase 6 polish (T072). No benchmarks were run; notes reflect design-level analysis with seed data at demo scale (~8 products, 4 categories).
+
+**SC-004 — Product search < 2 seconds**: The `findByFilters` JPQL query uses `LIKE` on `name` and `description`. At seed-data scale this is instant. At catalog scale (thousands of products), full-text search or a trigram index on those columns would be needed. No bottleneck observed with seed data.
+
+**SC-007 — All pages interactive < 3 seconds**: All HTML pages are static files served by Live Server with no build step. JavaScript bundles are minimal vanilla JS. Only risk is cold-start latency on the first Spring Boot request after startup (~1–2 s JVM warm-up). Subsequent requests are fast. No frontend bottleneck observed.
