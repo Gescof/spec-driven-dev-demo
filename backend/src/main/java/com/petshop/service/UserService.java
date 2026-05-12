@@ -29,15 +29,15 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found: " + userId));
 
-        if (request.getName() != null && !request.getName().isBlank()) {
-            user.setName(request.getName());
+        if (request.name() != null && !request.name().isBlank()) {
+            user.setName(request.name());
         }
-        if (request.getNewPassword() != null && !request.getNewPassword().isBlank()) {
-            if (request.getCurrentPassword() == null ||
-                    !passwordEncoder.matches(request.getCurrentPassword(), user.getPasswordHash())) {
+        if (request.newPassword() != null && !request.newPassword().isBlank()) {
+            if (request.currentPassword() == null ||
+                    !passwordEncoder.matches(request.currentPassword(), user.getPasswordHash())) {
                 throw new IllegalArgumentException("Current password is incorrect");
             }
-            user.setPasswordHash(passwordEncoder.encode(request.getNewPassword()));
+            user.setPasswordHash(passwordEncoder.encode(request.newPassword()));
         }
         return toProfile(userRepository.save(user));
     }

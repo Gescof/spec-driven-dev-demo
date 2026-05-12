@@ -15,6 +15,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.time.LocalDateTime;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -58,13 +60,13 @@ public class SecurityConfig {
                     response.setStatus(401);
                     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                     objectMapper.writeValue(response.getWriter(),
-                        new ErrorResponse(401, "Unauthorized", "Authentication required"));
+                        new ErrorResponse(401, "Unauthorized", "Authentication required", LocalDateTime.now()));
                 })
                 .accessDeniedHandler((request, response, accessDeniedException) -> {
                     response.setStatus(403);
                     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                     objectMapper.writeValue(response.getWriter(),
-                        new ErrorResponse(403, "Forbidden", "Access denied"));
+                        new ErrorResponse(403, "Forbidden", "Access denied", LocalDateTime.now()));
                 })
             );
         return http.build();

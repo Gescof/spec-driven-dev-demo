@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/petshop
+    username: petshop_user
+    password: petshop_pass
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+
+server:
+  port: 8080
+
+# CORS: allow the frontend dev origin
+petshop:
+  cors:
+    allowed-origins: http://localhost:5500,http://127.0.0.1:5500

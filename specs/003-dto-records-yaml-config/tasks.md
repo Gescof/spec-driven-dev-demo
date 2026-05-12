@@ -19,7 +19,7 @@
 
 **Purpose**: Confirm the build compiles and all tests pass before any changes are made.
 
-- [ ] T001 Run `cd backend && ./mvnw test` and confirm `BUILD SUCCESS` — establishes the pass/fail baseline before conversion begins
+- [X] T001 Run `cd backend && ./mvnw test` and confirm `BUILD SUCCESS` — establishes the pass/fail baseline before conversion begins
 
 ---
 
@@ -39,37 +39,37 @@
 
 #### Group A: Request DTOs (no superclass, no subclasses — fully parallel)
 
-- [ ] T002 [P] [US1] Convert `AddToCartRequest` to a Java record: replace class body with `public record AddToCartRequest(@Positive Long productId, @Min(1) int quantity) {}` in `backend/src/main/java/com/petshop/dto/AddToCartRequest.java`
-- [ ] T003 [P] [US1] Convert `LoginRequest` to a Java record: replace class body with `public record LoginRequest(String email, String password) {}` in `backend/src/main/java/com/petshop/dto/LoginRequest.java`
-- [ ] T004 [P] [US1] Convert `RegisterRequest` to a Java record: replace class body with `public record RegisterRequest(@NotBlank @Email String email, @NotBlank @Size(max=200) String name, @NotBlank @Size(min=8) String password) {}` in `backend/src/main/java/com/petshop/dto/RegisterRequest.java`
-- [ ] T005 [P] [US1] Convert `PlaceOrderRequest` to a Java record: replace class body with `public record PlaceOrderRequest(String cardholderName, @Pattern(regexp="\\d{4}") String cardNumberLast4) {}` in `backend/src/main/java/com/petshop/dto/PlaceOrderRequest.java`
-- [ ] T006 [P] [US1] Convert `UpdateCartItemRequest` to a Java record: replace class body with `public record UpdateCartItemRequest(@Min(1) int quantity) {}` in `backend/src/main/java/com/petshop/dto/UpdateCartItemRequest.java`
-- [ ] T007 [P] [US1] Convert `UpdateProfileRequest` to a Java record: replace class body with `public record UpdateProfileRequest(@Size(min=1) String name, String currentPassword, @Size(min=8) String newPassword) {}` in `backend/src/main/java/com/petshop/dto/UpdateProfileRequest.java`
+- [X] T002 [P] [US1] Convert `AddToCartRequest` to a Java record: replace class body with `public record AddToCartRequest(@Positive Long productId, @Min(1) int quantity) {}` in `backend/src/main/java/com/petshop/dto/AddToCartRequest.java`
+- [X] T003 [P] [US1] Convert `LoginRequest` to a Java record: replace class body with `public record LoginRequest(String email, String password) {}` in `backend/src/main/java/com/petshop/dto/LoginRequest.java`
+- [X] T004 [P] [US1] Convert `RegisterRequest` to a Java record: replace class body with `public record RegisterRequest(@NotBlank @Email String email, @NotBlank @Size(max=200) String name, @NotBlank @Size(min=8) String password) {}` in `backend/src/main/java/com/petshop/dto/RegisterRequest.java`
+- [X] T005 [P] [US1] Convert `PlaceOrderRequest` to a Java record: replace class body with `public record PlaceOrderRequest(String cardholderName, @Pattern(regexp="\\d{4}") String cardNumberLast4) {}` in `backend/src/main/java/com/petshop/dto/PlaceOrderRequest.java`
+- [X] T006 [P] [US1] Convert `UpdateCartItemRequest` to a Java record: replace class body with `public record UpdateCartItemRequest(@Min(1) int quantity) {}` in `backend/src/main/java/com/petshop/dto/UpdateCartItemRequest.java`
+- [X] T007 [P] [US1] Convert `UpdateProfileRequest` to a Java record: replace class body with `public record UpdateProfileRequest(@Size(min=1) String name, String currentPassword, @Size(min=8) String newPassword) {}` in `backend/src/main/java/com/petshop/dto/UpdateProfileRequest.java`
 
 #### Group B: Leaf Response DTOs (no superclass, no subclasses — fully parallel)
 
-- [ ] T008 [P] [US1] Convert `CategoryResponse` to a Java record: replace class body with `public record CategoryResponse(Long id, String name, String description) {}` in `backend/src/main/java/com/petshop/dto/CategoryResponse.java`
-- [ ] T009 [P] [US1] Convert `OrderLineItemResponse` to a Java record: replace class body with `public record OrderLineItemResponse(Long productId, String productName, BigDecimal unitPrice, int quantity, BigDecimal lineTotal) {}` in `backend/src/main/java/com/petshop/dto/OrderLineItemResponse.java`
-- [ ] T010 [P] [US1] Convert `CartItemResponse` to a Java record: replace class body with `public record CartItemResponse(Long productId, String productName, String productImageUrl, BigDecimal unitPrice, int quantity, BigDecimal lineTotal, boolean available) {}` in `backend/src/main/java/com/petshop/dto/CartItemResponse.java`
-- [ ] T011 [P] [US1] Convert `ErrorResponse` to a Java record: replace class body with `public record ErrorResponse(int status, String error, String message, LocalDateTime timestamp) {}` in `backend/src/main/java/com/petshop/dto/ErrorResponse.java`; verify `GlobalExceptionHandler` in `backend/src/main/java/com/petshop/GlobalExceptionHandler.java` still compiles (constructor call signature is unchanged)
-- [ ] T012 [P] [US1] Convert `UserProfileResponse` to a Java record: replace class body with `public record UserProfileResponse(Long id, String email, String name, LocalDateTime registeredAt) {}` in `backend/src/main/java/com/petshop/dto/UserProfileResponse.java`
-- [ ] T013 [P] [US1] Convert `ValidationErrorResponse` to a Java record: replace class body with `public record ValidationErrorResponse(int status, String error, String message, LocalDateTime timestamp, Map<String,String> fieldErrors) {}` in `backend/src/main/java/com/petshop/dto/ValidationErrorResponse.java`; verify `GlobalExceptionHandler` in `backend/src/main/java/com/petshop/GlobalExceptionHandler.java` still compiles
+- [X] T008 [P] [US1] Convert `CategoryResponse` to a Java record: replace class body with `public record CategoryResponse(Long id, String name, String description) {}` in `backend/src/main/java/com/petshop/dto/CategoryResponse.java`
+- [X] T009 [P] [US1] Convert `OrderLineItemResponse` to a Java record: replace class body with `public record OrderLineItemResponse(Long productId, String productName, BigDecimal unitPrice, int quantity, BigDecimal lineTotal) {}` in `backend/src/main/java/com/petshop/dto/OrderLineItemResponse.java`
+- [X] T010 [P] [US1] Convert `CartItemResponse` to a Java record: replace class body with `public record CartItemResponse(Long productId, String productName, String productImageUrl, BigDecimal unitPrice, int quantity, BigDecimal lineTotal, boolean available) {}` in `backend/src/main/java/com/petshop/dto/CartItemResponse.java`
+- [X] T011 [P] [US1] Convert `ErrorResponse` to a Java record: replace class body with `public record ErrorResponse(int status, String error, String message, LocalDateTime timestamp) {}` in `backend/src/main/java/com/petshop/dto/ErrorResponse.java`; verify `GlobalExceptionHandler` in `backend/src/main/java/com/petshop/GlobalExceptionHandler.java` still compiles (constructor call signature is unchanged)
+- [X] T012 [P] [US1] Convert `UserProfileResponse` to a Java record: replace class body with `public record UserProfileResponse(Long id, String email, String name, LocalDateTime registeredAt) {}` in `backend/src/main/java/com/petshop/dto/UserProfileResponse.java`
+- [X] T013 [P] [US1] Convert `ValidationErrorResponse` to a Java record: replace class body with `public record ValidationErrorResponse(int status, String error, String message, LocalDateTime timestamp, Map<String,String> fieldErrors) {}` in `backend/src/main/java/com/petshop/dto/ValidationErrorResponse.java`; verify `GlobalExceptionHandler` in `backend/src/main/java/com/petshop/GlobalExceptionHandler.java` still compiles
 
 #### Group C: Composite Response DTOs (depend only on leaf records — parallel with each other after Group B)
 
-- [ ] T014 [P] [US1] Convert `CartResponse` to a Java record: replace class body with `public record CartResponse(List<CartItemResponse> items, BigDecimal grandTotal, int itemCount) {}` in `backend/src/main/java/com/petshop/dto/CartResponse.java`
-- [ ] T015 [P] [US1] Convert `ProductPageResponse` to a Java record: replace class body with `public record ProductPageResponse(List<ProductSummaryResponse> content, long totalElements, int totalPages, int page, int size) {}` in `backend/src/main/java/com/petshop/dto/ProductPageResponse.java` (this will compile once ProductSummaryResponse is converted in T017)
+- [X] T014 [P] [US1] Convert `CartResponse` to a Java record: replace class body with `public record CartResponse(List<CartItemResponse> items, BigDecimal grandTotal, int itemCount) {}` in `backend/src/main/java/com/petshop/dto/CartResponse.java`
+- [X] T015 [P] [US1] Convert `ProductPageResponse` to a Java record: replace class body with `public record ProductPageResponse(List<ProductSummaryResponse> content, long totalElements, int totalPages, int page, int size) {}` in `backend/src/main/java/com/petshop/dto/ProductPageResponse.java` (this will compile once ProductSummaryResponse is converted in T017)
 
 #### Group D: Inheritance Hierarchy Flattening (sequential — each pair must be done together)
 
-- [ ] T016 [US1] Convert `OrderSummaryResponse` to a flat Java record — remove the class, delete the `extends` relationship, and replace with `public record OrderSummaryResponse(Long id, String orderNumber, String status, LocalDateTime placedAt, BigDecimal totalAmount, int itemCount) {}` in `backend/src/main/java/com/petshop/dto/OrderSummaryResponse.java`
-- [ ] T017 [US1] Convert `OrderDetailResponse` to a flat Java record — remove `extends OrderSummaryResponse`, inline all six parent fields plus `items`, and replace with `public record OrderDetailResponse(Long id, String orderNumber, String status, LocalDateTime placedAt, BigDecimal totalAmount, int itemCount, List<OrderLineItemResponse> items) {}` in `backend/src/main/java/com/petshop/dto/OrderDetailResponse.java`; update any `super(...)` construction sites in `backend/src/main/java/com/petshop/service/OrderService.java` to pass all seven fields directly to the canonical constructor
-- [ ] T018 [US1] Convert `ProductSummaryResponse` to a flat Java record — remove the class, delete the `extends` relationship, and replace with `public record ProductSummaryResponse(Long id, String name, BigDecimal price, String imageUrl, boolean available, CategoryResponse category) {}` in `backend/src/main/java/com/petshop/dto/ProductSummaryResponse.java`
-- [ ] T019 [US1] Convert `ProductDetailResponse` to a flat Java record — remove `extends ProductSummaryResponse`, inline all six parent fields plus `description`, and replace with `public record ProductDetailResponse(Long id, String name, BigDecimal price, String imageUrl, boolean available, CategoryResponse category, String description) {}` in `backend/src/main/java/com/petshop/dto/ProductDetailResponse.java`; update any `super(...)` construction sites in `backend/src/main/java/com/petshop/service/ProductService.java` to pass all seven fields directly to the canonical constructor
+- [X] T016 [US1] Convert `OrderSummaryResponse` to a flat Java record — remove the class, delete the `extends` relationship, and replace with `public record OrderSummaryResponse(Long id, String orderNumber, String status, LocalDateTime placedAt, BigDecimal totalAmount, int itemCount) {}` in `backend/src/main/java/com/petshop/dto/OrderSummaryResponse.java`
+- [X] T017 [US1] Convert `OrderDetailResponse` to a flat Java record — remove `extends OrderSummaryResponse`, inline all six parent fields plus `items`, and replace with `public record OrderDetailResponse(Long id, String orderNumber, String status, LocalDateTime placedAt, BigDecimal totalAmount, int itemCount, List<OrderLineItemResponse> items) {}` in `backend/src/main/java/com/petshop/dto/OrderDetailResponse.java`; update any `super(...)` construction sites in `backend/src/main/java/com/petshop/service/OrderService.java` to pass all seven fields directly to the canonical constructor
+- [X] T018 [US1] Convert `ProductSummaryResponse` to a flat Java record — remove the class, delete the `extends` relationship, and replace with `public record ProductSummaryResponse(Long id, String name, BigDecimal price, String imageUrl, boolean available, CategoryResponse category) {}` in `backend/src/main/java/com/petshop/dto/ProductSummaryResponse.java`
+- [X] T019 [US1] Convert `ProductDetailResponse` to a flat Java record — remove `extends ProductSummaryResponse`, inline all six parent fields plus `description`, and replace with `public record ProductDetailResponse(Long id, String name, BigDecimal price, String imageUrl, boolean available, CategoryResponse category, String description) {}` in `backend/src/main/java/com/petshop/dto/ProductDetailResponse.java`; update any `super(...)` construction sites in `backend/src/main/java/com/petshop/service/ProductService.java` to pass all seven fields directly to the canonical constructor
 
 #### Checkpoint: User Story 1
 
-- [ ] T020 [US1] Run `cd backend && ./mvnw test` and confirm `BUILD SUCCESS` with all tests passing — all 18 DTO records are in place and the existing test suite validates correctness
+- [X] T020 [US1] Run `cd backend && ./mvnw test` and confirm `BUILD SUCCESS` with all tests passing — all 18 DTO records are in place and the existing test suite validates correctness
 
 **At this checkpoint, User Story 1 is fully complete and independently testable.**
 
@@ -83,7 +83,7 @@
 
 ### Implementation for User Story 2
 
-- [ ] T021 [US2] Create `backend/src/main/resources/application.yml` with the following content (exact YAML from plan.md):
+- [X] T021 [US2] Create `backend/src/main/resources/application.yml` with the following content (exact YAML from plan.md):
 
   ```yaml
   spring:
@@ -105,8 +105,8 @@
       allowed-origins: http://localhost:5500,http://127.0.0.1:5500
   ```
 
-- [ ] T022 [US2] Delete `backend/src/main/resources/application.properties` — confirm the file no longer exists in the repository
-- [ ] T023 [US2] Create `backend/src/test/resources/application-test.yml` with the following content (exact YAML from plan.md):
+- [X] T022 [US2] Delete `backend/src/main/resources/application.properties` — confirm the file no longer exists in the repository
+- [X] T023 [US2] Create `backend/src/test/resources/application-test.yml` with the following content (exact YAML from plan.md):
 
   ```yaml
   spring:
@@ -130,8 +130,8 @@
       allowed-origins: http://localhost:5500
   ```
 
-- [ ] T024 [US2] Delete `backend/src/test/resources/application-test.properties` — confirm the file no longer exists in the repository
-- [ ] T025 [US2] Run `cd backend && ./mvnw test` and confirm `BUILD SUCCESS` with all tests passing using the new YAML configuration files
+- [X] T024 [US2] Delete `backend/src/test/resources/application-test.properties` — confirm the file no longer exists in the repository
+- [X] T025 [US2] Run `cd backend && ./mvnw test` and confirm `BUILD SUCCESS` with all tests passing using the new YAML configuration files
 
 **At this checkpoint, User Story 2 is fully complete and independently testable.**
 
@@ -141,10 +141,10 @@
 
 **Purpose**: Final validation and documentation check across both user stories.
 
-- [ ] T026 [P] Run full test suite one final time: `cd backend && ./mvnw test` — confirm `BUILD SUCCESS` with 100% pass rate as the definitive acceptance sign-off
-- [ ] T027 [P] Verify application starts against Docker database: `docker compose up -d db && cd backend && ./mvnw spring-boot:run` — confirm startup log shows `Started PetShopApplication` with no errors
-- [ ] T028 Spot-check JSON serialisation via `curl`: confirm `POST /api/auth/login` and `GET /api/products` return the expected JSON shapes (field names and types match the existing API contract)
-- [ ] T029 Confirm no `.properties` files remain: `ls backend/src/main/resources/` and `ls backend/src/test/resources/` should show only `.yml` files
+- [X] T026 [P] Run full test suite one final time: `cd backend && ./mvnw test` — confirm `BUILD SUCCESS` with 100% pass rate as the definitive acceptance sign-off
+- [X] T027 [P] Verify application starts against Docker database: `docker compose up -d db && cd backend && ./mvnw spring-boot:run` — confirm startup log shows `Started PetShopApplication` with no errors
+- [X] T028 Spot-check JSON serialisation via `curl`: confirm `POST /api/auth/login` and `GET /api/products` return the expected JSON shapes (field names and types match the existing API contract)
+- [X] T029 Confirm no `.properties` files remain: `ls backend/src/main/resources/` and `ls backend/src/test/resources/` should show only `.yml` files
 
 ---
 
