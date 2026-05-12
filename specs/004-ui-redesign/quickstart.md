@@ -17,6 +17,16 @@ Homepage: [http://localhost](http://localhost)
 
 The `frontend/` directory is served via Nginx on port 80. Changes to HTML/CSS/JS files are reflected after a rebuild (`docker compose up --build`) or by mounting the directory as a volume for hot-reload in development.
 
+## Seeding the Database
+
+After the stack is running, seed categories and products (required for categories/products tests to pass):
+
+```bash
+cat backend/src/main/resources/db/seed.sql | docker exec -i spec-driven-dev-demo-db-1 psql -U petshop -d petshop
+```
+
+> Note: the backend uses `ddl-auto=create-drop`, so re-seeding is needed each time the backend container is recreated.
+
 ## TDD Workflow (Test-First)
 
 ### 1. Install Playwright (first time only)
