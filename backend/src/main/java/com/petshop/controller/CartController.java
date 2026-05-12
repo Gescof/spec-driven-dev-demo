@@ -40,7 +40,7 @@ public class CartController {
             @Valid @RequestBody UpdateCartItemRequest request,
             Authentication authentication) {
         return ResponseEntity.ok(
-                cartService.updateQuantity(resolveUserId(authentication), productId, request.getQuantity()));
+                cartService.updateQuantity(resolveUserId(authentication), productId, request.quantity()));
     }
 
     @DeleteMapping("/items/{productId}")

@@ -63,8 +63,8 @@ class ProductServiceTest {
 
         ProductPageResponse result = productService.listProducts(null, null, null, pageable);
 
-        assertThat(result.getContent()).hasSize(1);
-        assertThat(result.getTotalElements()).isEqualTo(1);
+        assertThat(result.content()).hasSize(1);
+        assertThat(result.totalElements()).isEqualTo(1);
     }
 
     @Test
@@ -75,7 +75,7 @@ class ProductServiceTest {
 
         ProductPageResponse result = productService.listProducts(1L, null, null, pageable);
 
-        assertThat(result.getContent()).hasSize(1);
+        assertThat(result.content()).hasSize(1);
     }
 
     @Test
@@ -86,7 +86,7 @@ class ProductServiceTest {
 
         ProductPageResponse result = productService.listProducts(null, "dog", null, pageable);
 
-        assertThat(result.getContent()).hasSize(1);
+        assertThat(result.content()).hasSize(1);
     }
 
     @Test
@@ -95,8 +95,8 @@ class ProductServiceTest {
 
         ProductDetailResponse result = productService.getById(1L);
 
-        assertThat(result.getName()).isEqualTo("Dog Food");
-        assertThat(result.getDescription()).isEqualTo("Tasty food");
+        assertThat(result.name()).isEqualTo("Dog Food");
+        assertThat(result.description()).isEqualTo("Tasty food");
     }
 
     @Test
@@ -115,6 +115,6 @@ class ProductServiceTest {
         List<ProductSummaryResponse> result = productService.getFeatured();
 
         assertThat(result).hasSize(1);
-        assertThat(result.get(0).isAvailable()).isTrue();
+        assertThat(result.get(0).available()).isTrue();
     }
 }

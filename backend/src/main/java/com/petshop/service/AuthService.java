@@ -22,13 +22,13 @@ public class AuthService {
     }
 
     public UserProfileResponse register(RegisterRequest request) {
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new DuplicateEmailException("Email already taken: " + request.getEmail());
+        if (userRepository.existsByEmail(request.email())) {
+            throw new DuplicateEmailException("Email already taken: " + request.email());
         }
         User user = new User();
-        user.setEmail(request.getEmail());
-        user.setName(request.getName());
-        user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
+        user.setEmail(request.email());
+        user.setName(request.name());
+        user.setPasswordHash(passwordEncoder.encode(request.password()));
         User saved = userRepository.save(user);
         return toProfile(saved);
     }

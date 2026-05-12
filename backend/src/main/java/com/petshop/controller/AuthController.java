@@ -16,6 +16,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -33,7 +35,7 @@ public class AuthController {
             @Valid @RequestBody RegisterRequest request, HttpServletRequest httpRequest) {
         UserProfileResponse profile = authService.register(request);
         Authentication auth = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+                new UsernamePasswordAuthenticationToken(request.email(), request.password()));
         SecurityContextHolder.getContext().setAuthentication(auth);
         httpRequest.getSession(true).setAttribute(
                 HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
@@ -45,7 +47,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest request, HttpServletRequest httpRequest) {
         try {
             Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+                    new UsernamePasswordAuthenticationToken(request.email(), request.password()));
             SecurityContextHolder.getContext().setAuthentication(auth);
             httpRequest.getSession(true).setAttribute(
                     HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
@@ -53,7 +55,7 @@ public class AuthController {
             return ResponseEntity.ok(authService.getCurrentUser(auth));
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new com.petshop.dto.ErrorResponse(401, "Unauthorized", "Invalid email or password"));
+                    .body(new com.petshop.dto.ErrorResponse(401, "Unauthorized", "Invalid email or password", LocalDateTime.now()));
         }
     }
 

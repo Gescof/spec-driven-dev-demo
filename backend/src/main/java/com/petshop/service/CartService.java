@@ -53,22 +53,22 @@ public class CartService {
 
     public CartResponse addToCart(Long userId, AddToCartRequest request) {
         Cart cart = getOrCreateCart(userId);
-        Product product = productRepository.findById(request.getProductId())
-                .orElseThrow(() -> new NotFoundException("Product not found: " + request.getProductId()));
+        Product product = productRepository.findById(request.productId())
+                .orElseThrow(() -> new NotFoundException("Product not found: " + request.productId()));
         if (!product.isAvailable()) {
             throw new OutOfStockException("Product is out of stock: " + product.getName());
         }
         cartItemRepository.findByCartIdAndProductId(cart.getId(), product.getId())
                 .ifPresentOrElse(
                         item -> {
-                            item.setQuantity(item.getQuantity() + request.getQuantity());
+                            item.setQuantity(item.getQuantity() + request.quantity());
                             cartItemRepository.save(item);
                         },
                         () -> {
                             CartItem item = new CartItem();
                             item.setCart(cart);
                             item.setProduct(product);
-                            item.setQuantity(request.getQuantity());
+                            item.setQuantity(request.quantity());
                             cartItemRepository.save(item);
                         });
         return toResponse(cartRepository.save(cart));
@@ -102,7 +102,7 @@ public class CartService {
                     i.getQuantity(), lineTotal, i.getProduct().isAvailable());
         }).toList();
         BigDecimal grandTotal = items.stream()
-                .map(CartItemResponse::getLineTotal)
+                .map(CartItemResponse::lineTotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         return new CartResponse(items, grandTotal, items.size());
     }

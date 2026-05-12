@@ -50,8 +50,8 @@ class AuthServiceTest {
         UserProfileResponse result = authService.register(
                 new RegisterRequest("test@example.com", "Test User", "password123"));
 
-        assertThat(result.getEmail()).isEqualTo("test@example.com");
-        assertThat(result.getName()).isEqualTo("Test User");
+        assertThat(result.email()).isEqualTo("test@example.com");
+        assertThat(result.name()).isEqualTo("Test User");
         verify(userRepository).save(any(User.class));
     }
 
@@ -76,6 +76,6 @@ class AuthServiceTest {
 
         UserProfileResponse result = authService.getCurrentUser(auth);
 
-        assertThat(result.getEmail()).isEqualTo("test@example.com");
+        assertThat(result.email()).isEqualTo("test@example.com");
     }
 }
