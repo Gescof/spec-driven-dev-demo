@@ -8,27 +8,66 @@
 </head>
 <body>
     <nav class="nav">
-        <a class="nav__brand" href="index.html">PetShop</a>
+        <a class="nav__brand" href="index.html">Pet Store</a>
         <ul class="nav__links">
-            <li><a href="catalog.html">Catalog</a></li>
-            <li class="nav__cart-item"><a href="cart.html">Cart <span id="nav-cart-count" class="cart-badge" style="display:none">0</span></a></li>
-            <li class="nav__auth-guest"><a href="login.html">Login</a></li>
-            <li class="nav__auth-guest"><a href="register.html">Register</a></li>
-            <li class="nav__auth-user" style="display:none"><a href="account.html">Account</a></li>
-            <li class="nav__auth-user" style="display:none"><a href="#" id="nav-logout">Logout</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="catalog.html">Shop</a></li>
+            <li><a id="nav-dogs" href="#">Dogs</a></li>
+            <li><a id="nav-cats" href="#">Cats</a></li>
+            <li><a id="nav-birds" href="#">Birds</a></li>
+            <li><a href="#">Blog</a></li>
         </ul>
+        <div class="nav__actions">
+            <button class="nav__icon-btn nav__auth-user" id="nav-account-btn" style="display:none" aria-label="Account">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <button class="nav__icon-btn" id="nav-cart-btn" aria-label="Cart">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2"/>
+                    <path d="M16 10a4 4 0 01-8 0" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span id="nav-cart-count" class="cart-badge" style="display:none">0</span>
+            </button>
+            <span class="nav__auth-guest"><a href="login.html">Login</a></span>
+            <span class="nav__auth-guest"><a href="register.html">Register</a></span>
+            <span class="nav__auth-user" style="display:none"><a href="#" id="nav-logout">Logout</a></span>
+        </div>
     </nav>
 
     <main>
-        <section class="hero">
-            <h1>Welcome to PetShop</h1>
-            <p>Everything your pets need, delivered with care.</p>
-            <a class="btn btn--primary" href="catalog.html">Browse Catalog</a>
+        <section class="home-section" id="categories-section">
+            <h2 class="home-section__title">CATEGORIES</h2>
+            <div id="categories-grid" class="category-grid"></div>
         </section>
 
-        <section class="section">
-            <h2 class="section__title">Featured Products</h2>
-            <div id="featured-products" class="product-grid"></div>
+        <section class="hero--warm">
+            <div class="hero__content">
+                <h1 class="hero__headline">Treat Your Pet like royalty!</h1>
+                <a class="btn--cta" href="catalog.html">SHOP NOW</a>
+                <span class="hero__badge">FREE DELIVERY</span>
+            </div>
+            <div class="hero__image">
+                <img src="images/hero-pet.jpg" alt="Happy golden retriever">
+            </div>
+        </section>
+
+        <section class="home-section" id="popular-products">
+            <h2 class="home-section__title">POPULAR PRODUCTS</h2>
+            <div id="popular-products-grid" class="home-product-grid"></div>
+        </section>
+
+        <section class="home-section" id="customer-favorites">
+            <h2 class="home-section__title">Customer Favorites</h2>
+            <div class="favorites-grid">
+                <div class="favorites-card"><img src="images/fav-1.jpg" alt="A happy dog enjoying playtime" loading="lazy"></div>
+                <div class="favorites-card"><img src="images/fav-2.jpg" alt="A cat relaxing in the sun" loading="lazy"></div>
+                <div class="favorites-card"><img src="images/fav-3.jpg" alt="A colorful bird on a perch" loading="lazy"></div>
+                <div class="favorites-card"><img src="images/fav-4.jpg" alt="A small pet being cuddled" loading="lazy"></div>
+            </div>
         </section>
     </main>
 

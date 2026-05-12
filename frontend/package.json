@@ -1,0 +1,11 @@
+{
+  "name": "pet-shop-frontend-tests",
+  "private": true,
+  "devDependencies": {
+    "@playwright/test": "^1.43.0",
+    "@axe-core/playwright": "^4.9.0"
+  },
+  "scripts": {
+    "test": "playwright test"
+  }
+}
